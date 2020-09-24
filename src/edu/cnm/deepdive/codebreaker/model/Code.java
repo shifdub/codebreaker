@@ -26,9 +26,10 @@ public class Code {
   }
 
   public class Guess {
-    private static final String STRING_FORMAT = "{text:\"%s\", correct: %d, close %d }";
 
-    private String text;
+    private static final String STRING_FORMAT = "{text: \"%s\", correct: %d, close: %d}";
+
+    private final String text;
     private final int correct;
     private final int close;
 
@@ -36,43 +37,47 @@ public class Code {
       this.text = text;
       int correct = 0;
       int close = 0;
-      Map<Character, Set<Integer>> letterMap = new HashMap<>();
-      char[] letters = text.toCharArray();
-      for (int i = 0; i <letters.length; i ++) {
-        char letter = letters[i];
-        Set<Integer> positions = letterMap.getOrDefault(letter, new HashSet());
-        positions.add(i);
-        letterMap.putIfAbsent(letter, positions);
 
-      char [] work = Arrays.copyOf(secret, secret.length);
-      }
+      Map<Character, Set<Integer>> letterMap = getLetterMap(text);
 
+      char[] work = Arrays.copyOf(secret, secret.length);
 
       for (int i = 0; i < work.length; i++) {
-          char letter = work[i];
-          if (letter !=0){
-            Set<Integer> positions = letterMap.getOrDefault(letter, Collections.emptySet());
-            if (positions.size() > 0) {
+        char letter = work[i];
+        Set<Integer> positions = letterMap.getOrDefault(letter, Collections.emptySet());
+        if (positions.contains(i)) {
+          correct++;
+          positions.remove(i);
+          work[i] = 0;
+        }
+      }
 
-            }
-            Iterator<Integer> iter = iter; positions.iterator();
+      for (char letter : work) {
+        if (letter != 0) {
+          Set<Integer> positions = letterMap.getOrDefault(letter, Collections.emptySet());
+          if (positions.size() > 0) {
+            close++;
+            Iterator<Integer> iter = positions.iterator();
             iter.next();
             iter.remove();
           }
         }
-
-
-
-      for (int i = 0; i < secret.length; i++) {
-        char current = secret[i];
-        int position = text.indexOf(current);
-        if (i == position) {
-          correct++;
-        } else if (position >= 0) {
-        }
       }
+
       this.correct = correct;
       this.close = close;
+    }
+
+    private Map<Character, Set<Integer>> getLetterMap(String text) {
+      Map<Character, Set<Integer>> letterMap = new HashMap<>();
+      char[] letters = text.toCharArray();
+      for (int i = 0; i < letters.length; i++) {
+        char letter = letters[i];
+        Set<Integer> positions = letterMap.getOrDefault(letter, new HashSet<>());
+        positions.add(i);
+        letterMap.putIfAbsent(letter, positions);
+      }
+      return letterMap;
     }
 
     @Override
@@ -91,6 +96,7 @@ public class Code {
     public int getClose() {
       return close;
     }
-  }
-}
 
+  }
+
+}
