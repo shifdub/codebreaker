@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.controller;
+package edu.cnm.deepdive.codebreaker.controller;
 
 import edu.cnm.deepdive.codebreaker.model.Code.Guess;
 import edu.cnm.deepdive.codebreaker.model.Game;
