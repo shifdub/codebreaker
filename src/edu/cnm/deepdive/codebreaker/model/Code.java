@@ -9,10 +9,22 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * Encapsulates a randomly generated secret code, This class also includes the inner  {@code Guess}
+ * class.
+ */
 public class Code {
 
   private final char[] secret;
 
+  /**
+   * Initializes this instance by generating a random {@link String}, of length {@code length} with
+   * characters taken from {@code pool}. A source of randomness must be provided in {@code rng}.
+   *
+   * @param pool Characters allowed in the code.
+   * @param length Number of characters in the code.
+   * @param rng Source of randomness
+   */
   public Code(String pool, int length, Random rng) {
     secret = new char[length];
     for (int i = 0; i < secret.length; i++) {
@@ -25,6 +37,9 @@ public class Code {
     return new String(secret);
   }
 
+  /**
+   * Represents a single attempt to guess a {@link Code}.
+   */
   public class Guess {
 
     private static final String STRING_FORMAT = "{text: \"%s\", correct: %d, close: %d}";
@@ -33,6 +48,12 @@ public class Code {
     private final int correct;
     private final int close;
 
+    /**
+     * Initializes this instance by computing the number of characters in the {@code text} that are
+     * also in the {@link Code}, and are in the same position in both, as well as the number of
+     * additional characters that are in both, but not in the sme position
+     * @param text Guess content
+     */
     public Guess(String text) {
       this.text = text;
       int correct = 0;
@@ -85,14 +106,26 @@ public class Code {
       return String.format(STRING_FORMAT, text, correct, close);
     }
 
+    /**
+     *  Returns the text of the guess.
+     */
     public String getText() {
       return text;
     }
 
+    /**
+     * Returns the number of characters in the guess that are also in the code, which are in the
+     *  same position in both.
+     */
     public int getCorrect() {
       return correct;
     }
 
+    /**
+     * Returns the number of characters in the guess that are also in the code, but which are not in
+     * the same position in both. Note that any characters already matched in the code by
+     * {@link #getCorrect()} are not included in this result.
+     */
     public int getClose() {
       return close;
     }
