@@ -20,6 +20,11 @@ public class Game {
   private final int length;
   private final String goodCharacterPattern;
 
+  /**
+   *
+   * Initializes game containing string of the letters ROYGBIV into a code with a length of 4 of the letters
+   * in a random order. Each letter can be used up to 4 times
+   */
   public Game(String pool, int length, Random rng) {
     code = new Code(pool, length, rng);
     guesses = new LinkedList<>();
@@ -28,6 +33,10 @@ public class Game {
     goodCharacterPattern = String.format(GOOD_CHARACTER_PATTERN_FORMAT, pool);
   }
 
+  /**
+   *
+   * returns secret code in quotes when guessed by user
+   */
   public Code getCode() {
     return code;
   }
@@ -36,18 +45,34 @@ public class Game {
     return Collections.unmodifiableList(guesses);
   }
 
+  /**
+   * Initializes  String of letters used for the code for user to guess
+   * returns ROYGBIV
+   */
   public String getPool() {
     return pool;
   }
 
+  /**
+   * returns selection of size for the length user has chosen for number of variables in the code
+   * and option of 3, 4 , or 5 variables
+   */
   public int getLength() {
     return length;
   }
 
+  /**
+   *  returns the number of attemped guesses
+   *
+   */
   public int getGuessCount() {
     return guesses.size();
   }
 
+  /**
+   * If user guess includes wrong characters or incorrect number of characters
+   * text IllegalGuessLengthException or IllegalGuessCharacterException is returned
+   */
   public Guess guess(String text)
       throws IllegalGuessLengthException, IllegalGuessCharacterException {
     if (text.length() != length) {
