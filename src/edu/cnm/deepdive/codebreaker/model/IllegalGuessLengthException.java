@@ -10,22 +10,21 @@ public class IllegalGuessLengthException extends IllegalArgumentException {
 
   /**
    *
-   * @param String message super message
+   * @param 
    */
   public IllegalGuessLengthException(String message) {
     super(message);
   }
   /**
    *
-   * @param message
-   * @param  cause
+   * throws illegalguesslength exception when guess is incorrect length
    */
   public IllegalGuessLengthException(String message, Throwable cause) {
     super(message, cause);
   }
 
   /**
-   *
+   * {@link Throwable }
    * @param cause
    */
   public IllegalGuessLengthException(Throwable cause) {

@@ -22,8 +22,8 @@ public class Game {
 
   /**
    *
-   * Initializes game containing string of the letters ROYGBIV into a code with a length of 4 of the letters
-   * in a random order. Each letter can be used up to 4 times
+   * Initializes game using string of at letters ROYGBIV into a code with a length of 4 of the letters
+   * in a random order created with (rng). Each letter can be used up to 4 times
    */
   public Game(String pool, int length, Random rng) {
     code = new Code(pool, length, rng);
@@ -35,7 +35,7 @@ public class Game {
 
   /**
    *
-   * returns secret code in quotes when guessed by user
+   * returns random generated code for the game
    */
   public Code getCode() {
     return code;
@@ -55,7 +55,7 @@ public class Game {
 
   /**
    * returns selection of size for the length user has chosen for number of variables in the code
-   * and option of 3, 4 , or 5 variables
+   * an option of 3, 4 , or 5 variables
    */
   public int getLength() {
     return length;
